@@ -1,0 +1,86 @@
+{
+  "version": "0.1",
+  "id": "repair-demonstration",
+  "title": "Data-preserving local repair",
+  "theme": "academic-minimal",
+  "audience": "Researchers, engineers and AI agent developers",
+  "slides": [
+    {
+      "id": "results",
+      "type": "comparison",
+      "title": "Compare evidence, not decoration",
+      "keyMessage": "Illustrative metrics below are simulated and are not research findings.",
+      "blocks": [
+        {
+          "id": "metrics-table",
+          "type": "table",
+          "columns": [
+            "Method",
+            "Score",
+            "Time (ms)"
+          ],
+          "rows": [
+            [
+              "K-Means",
+              0.71,
+              18
+            ],
+            [
+              "DBSCAN",
+              0.83,
+              31
+            ],
+            [
+              "Baseline",
+              0.54,
+              12
+            ]
+          ],
+          "simulated": true,
+          "fontSize": 22,
+          "layout": {
+            "x": -80,
+            "y": 200,
+            "width": 562,
+            "height": 430
+          }
+        },
+        {
+          "id": "metrics-chart",
+          "type": "chart",
+          "chartType": "bar",
+          "labels": [
+            "K-Means",
+            "DBSCAN",
+            "Baseline"
+          ],
+          "series": [
+            {
+              "name": "Illustrative score",
+              "values": [
+                0.71,
+                0.83,
+                0.54
+              ]
+            }
+          ],
+          "simulated": true,
+          "fontSize": 22
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-simulated",
+          "title": "Hand-authored simulated data",
+          "note": "Values exist solely to exercise table/chart fidelity; no real experiment was run."
+        }
+      ],
+      "constraints": {
+        "preserve": [
+          "metrics-table",
+          "metrics-chart"
+        ]
+      }
+    }
+  ]
+}

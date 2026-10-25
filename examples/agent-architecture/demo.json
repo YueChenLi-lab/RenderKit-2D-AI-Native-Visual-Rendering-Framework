@@ -1,0 +1,80 @@
+{
+  "version": "0.1",
+  "id": "architecture-example",
+  "title": "RenderKit 2D — Inspectable Visuals",
+  "theme": "tech-dashboard",
+  "audience": "Researchers, engineers and AI agent developers",
+  "slides": [
+    {
+      "id": "agent-system",
+      "type": "architecture",
+      "title": "Agents share a verifiable contract",
+      "keyMessage": "The IR connects planning, rendering and quality control.",
+      "blocks": [
+        {
+          "id": "agent-architecture",
+          "type": "architecture",
+          "nodes": [
+            {
+              "id": "input",
+              "label": "Content parser"
+            },
+            {
+              "id": "planner",
+              "label": "Narrative planner"
+            },
+            {
+              "id": "ir",
+              "label": "Validated IR"
+            },
+            {
+              "id": "renderer",
+              "label": "Web / PPTX"
+            },
+            {
+              "id": "audit",
+              "label": "Visual auditor"
+            },
+            {
+              "id": "repair",
+              "label": "Safe repair"
+            }
+          ],
+          "edges": [
+            {
+              "from": "input",
+              "to": "planner"
+            },
+            {
+              "from": "planner",
+              "to": "ir"
+            },
+            {
+              "from": "ir",
+              "to": "renderer"
+            },
+            {
+              "from": "renderer",
+              "to": "audit"
+            },
+            {
+              "from": "audit",
+              "to": "repair"
+            },
+            {
+              "from": "repair",
+              "to": "renderer",
+              "label": "re-render"
+            }
+          ]
+        },
+        {
+          "id": "agent-boundary",
+          "type": "text",
+          "text": "Optional model adapters can propose content; schema validation and render checks remain deterministic.",
+          "fontSize": 22
+        }
+      ]
+    }
+  ]
+}

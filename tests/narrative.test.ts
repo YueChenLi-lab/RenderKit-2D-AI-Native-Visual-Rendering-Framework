@@ -1,0 +1,9 @@
+import { describe,expect,it } from 'vitest';
+import { parseInput,RuleBasedNarrativePlanner,selectRepresentation } from '../packages/narrative/src/index.js';
+import { fixture } from './fixtures.js';
+describe('content and narrative without an LLM',()=>{
+ it('parses validated JSON and rejects malformed input',()=>{const d=fixture();expect(parseInput(JSON.stringify(d),'json')).toEqual(d);expect(()=>parseInput('{bad','json')).toThrow();});
+ it('preserves Markdown content and formula source',()=>{const content='# Teaching\n\n## Objective\n\nKeep this claim unchanged.\n\n- First detail\n- Second detail\n\n## Mathematics\n\n$$\nE = mc^2\n$$';const d=parseInput(content,'markdown');const body=d.slides.flatMap(s=>s.blocks).filter(b=>b.type==='text').map(b=>b.text).join('\n');expect(body).toContain('Keep this claim unchanged.');expect(body).toContain('First detail');expect(body).toContain('Second detail');expect(d.slides.flatMap(s=>s.blocks).some(b=>b.type==='formula'&&b.latex==='E = mc^2')).toBe(true);});
+ it('creates contracts without fabricating or changing numeric evidence',()=>{const d=fixture();const before=structuredClone(d);const planned=new RuleBasedNarrativePlanner().plan(d);expect(d).toEqual(before);expect(planned.slides.every(s=>s.contract?.keyMessage&&s.contract?.acceptanceCriteria.length)).toBe(true);expect(planned.slides.map(s=>s.blocks)).toEqual(d.slides.map(s=>s.blocks));expect(planned.slides.map(s=>s.sources)).toEqual(d.slides.map(s=>s.sources));});
+ it.each([['comparison','table / bar chart'],['trend','line chart'],['relationship','scatter plot'],['architecture','architecture diagram'],['mathematics','formula block'],['timeline','roadmap']])('selects an intentional representation for %s',(intent,expected)=>{expect(selectRepresentation(intent)).toBe(expected);});
+});

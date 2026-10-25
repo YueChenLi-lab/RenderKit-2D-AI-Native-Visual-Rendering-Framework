@@ -1,0 +1,74 @@
+{
+  "version": "0.1",
+  "id": "clustering-example",
+  "title": "RenderKit 2D — Inspectable Visuals",
+  "theme": "academic-minimal",
+  "audience": "Researchers, engineers and AI agent developers",
+  "slides": [
+    {
+      "id": "clustering",
+      "type": "two-column",
+      "title": "Clustering starts with an assumption",
+      "keyMessage": "Choose the algorithm to match the geometry of the problem.",
+      "blocks": [
+        {
+          "id": "kmeans",
+          "type": "text",
+          "text": "K-MEANS\n\nAssign each point to its nearest centroid.\nUpdate centroids and repeat.\n\nBest suited to compact, roughly spherical groups.\nRequires the number of clusters k.",
+          "fontSize": 24
+        },
+        {
+          "id": "dbscan",
+          "type": "text",
+          "text": "DBSCAN\n\nExpand clusters through dense neighborhoods.\nLabel isolated observations as noise.\n\nCan recover irregular cluster shapes.\nSensitive to ε and minPts.",
+          "fontSize": 24
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-cluster",
+          "title": "scikit-learn clustering guide",
+          "url": "https://scikit-learn.org/stable/modules/clustering.html"
+        }
+      ],
+      "constraints": {
+        "preserve": [
+          "kmeans",
+          "dbscan"
+        ]
+      }
+    },
+    {
+      "id": "objective",
+      "type": "formula",
+      "title": "The K-Means objective",
+      "keyMessage": "Minimize within-cluster squared distance to the centroids.",
+      "blocks": [
+        {
+          "id": "kmeans-formula",
+          "type": "formula",
+          "latex": "\\underset{\\{C_j,\\mu_j\\}_{j=1}^{k}}{\\operatorname{minimize}}\\quad \\sum_{j=1}^{k}\\sum_{x_i\\in C_j}\\lVert x_i-\\mu_j\\rVert_2^2",
+          "caption": "Cⱼ is a cluster; μⱼ is its centroid."
+        },
+        {
+          "id": "objective-note",
+          "type": "text",
+          "text": "Assignment and centroid updates alternate until convergence.\nThe objective can reach a local minimum; initialization matters.\nFeature scaling affects the distance metric.",
+          "fontSize": 24
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-objective",
+          "title": "scikit-learn K-Means documentation",
+          "url": "https://scikit-learn.org/stable/modules/clustering.html#k-means"
+        }
+      ],
+      "constraints": {
+        "preserve": [
+          "kmeans-formula"
+        ]
+      }
+    }
+  ]
+}

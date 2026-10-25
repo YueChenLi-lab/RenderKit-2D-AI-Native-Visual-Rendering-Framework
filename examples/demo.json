@@ -1,0 +1,317 @@
+{
+  "version": "0.1",
+  "id": "renderkit-demo",
+  "title": "RenderKit 2D — Inspectable Visuals",
+  "theme": "academic-minimal",
+  "audience": "Researchers, engineers and AI agent developers",
+  "slides": [
+    {
+      "id": "intro",
+      "type": "title",
+      "title": "RenderKit 2D",
+      "keyMessage": "One semantic model. Multiple editable visual outputs.",
+      "blocks": [
+        {
+          "id": "intro-overview",
+          "type": "text",
+          "text": "An AI-native framework for teaching, research and engineering communication.\n\nPlan the message. Render the evidence. Verify the result.",
+          "fontSize": 30
+        },
+        {
+          "id": "intro-flow",
+          "type": "process",
+          "steps": [
+            "Content IR",
+            "Design rules",
+            "Web + PPTX",
+            "Audit + repair"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-demo",
+          "title": "RenderKit 2D v0.1 demonstration",
+          "note": "Framework demonstration, not an empirical research study."
+        }
+      ]
+    },
+    {
+      "id": "clustering",
+      "type": "two-column",
+      "title": "Clustering starts with an assumption",
+      "keyMessage": "Choose the algorithm to match the geometry of the problem.",
+      "blocks": [
+        {
+          "id": "kmeans",
+          "type": "text",
+          "text": "K-MEANS\n\nAssign each point to its nearest centroid.\nUpdate centroids and repeat.\n\nBest suited to compact, roughly spherical groups.\nRequires the number of clusters k.",
+          "fontSize": 24
+        },
+        {
+          "id": "dbscan",
+          "type": "text",
+          "text": "DBSCAN\n\nExpand clusters through dense neighborhoods.\nLabel isolated observations as noise.\n\nCan recover irregular cluster shapes.\nSensitive to ε and minPts.",
+          "fontSize": 24
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-cluster",
+          "title": "scikit-learn clustering guide",
+          "url": "https://scikit-learn.org/stable/modules/clustering.html"
+        }
+      ],
+      "constraints": {
+        "preserve": [
+          "kmeans",
+          "dbscan"
+        ]
+      }
+    },
+    {
+      "id": "objective",
+      "type": "formula",
+      "title": "The K-Means objective",
+      "keyMessage": "Minimize within-cluster squared distance to the centroids.",
+      "blocks": [
+        {
+          "id": "kmeans-formula",
+          "type": "formula",
+          "latex": "\\underset{\\{C_j,\\mu_j\\}_{j=1}^{k}}{\\operatorname{minimize}}\\quad \\sum_{j=1}^{k}\\sum_{x_i\\in C_j}\\lVert x_i-\\mu_j\\rVert_2^2",
+          "caption": "Cⱼ is a cluster; μⱼ is its centroid."
+        },
+        {
+          "id": "objective-note",
+          "type": "text",
+          "text": "Assignment and centroid updates alternate until convergence.\nThe objective can reach a local minimum; initialization matters.\nFeature scaling affects the distance metric.",
+          "fontSize": 24
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-objective",
+          "title": "scikit-learn K-Means documentation",
+          "url": "https://scikit-learn.org/stable/modules/clustering.html#k-means"
+        }
+      ],
+      "constraints": {
+        "preserve": [
+          "kmeans-formula"
+        ]
+      }
+    },
+    {
+      "id": "agent-system",
+      "type": "architecture",
+      "title": "Agents share a verifiable contract",
+      "keyMessage": "The IR connects planning, rendering and quality control.",
+      "blocks": [
+        {
+          "id": "agent-architecture",
+          "type": "architecture",
+          "nodes": [
+            {
+              "id": "input",
+              "label": "Content parser"
+            },
+            {
+              "id": "planner",
+              "label": "Narrative planner"
+            },
+            {
+              "id": "ir",
+              "label": "Validated IR"
+            },
+            {
+              "id": "renderer",
+              "label": "Web / PPTX"
+            },
+            {
+              "id": "audit",
+              "label": "Visual auditor"
+            },
+            {
+              "id": "repair",
+              "label": "Safe repair"
+            }
+          ],
+          "edges": [
+            {
+              "from": "input",
+              "to": "planner"
+            },
+            {
+              "from": "planner",
+              "to": "ir"
+            },
+            {
+              "from": "ir",
+              "to": "renderer"
+            },
+            {
+              "from": "renderer",
+              "to": "audit"
+            },
+            {
+              "from": "audit",
+              "to": "repair"
+            },
+            {
+              "from": "repair",
+              "to": "renderer",
+              "label": "re-render"
+            }
+          ]
+        },
+        {
+          "id": "agent-boundary",
+          "type": "text",
+          "text": "Optional model adapters can propose content; schema validation and render checks remain deterministic.",
+          "fontSize": 22
+        }
+      ]
+    },
+    {
+      "id": "results",
+      "type": "comparison",
+      "title": "Compare evidence, not decoration",
+      "keyMessage": "Illustrative metrics below are simulated and are not research findings.",
+      "blocks": [
+        {
+          "id": "metrics-table",
+          "type": "table",
+          "columns": [
+            "Method",
+            "Score",
+            "Time (ms)"
+          ],
+          "rows": [
+            [
+              "K-Means",
+              0.71,
+              18
+            ],
+            [
+              "DBSCAN",
+              0.83,
+              31
+            ],
+            [
+              "Baseline",
+              0.54,
+              12
+            ]
+          ],
+          "simulated": true,
+          "fontSize": 22
+        },
+        {
+          "id": "metrics-chart",
+          "type": "chart",
+          "chartType": "bar",
+          "labels": [
+            "K-Means",
+            "DBSCAN",
+            "Baseline"
+          ],
+          "series": [
+            {
+              "name": "Illustrative score",
+              "values": [
+                0.71,
+                0.83,
+                0.54
+              ]
+            }
+          ],
+          "simulated": true,
+          "fontSize": 22
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-simulated",
+          "title": "Hand-authored simulated data",
+          "note": "Values exist solely to exercise table/chart fidelity; no real experiment was run."
+        }
+      ],
+      "constraints": {
+        "preserve": [
+          "metrics-table",
+          "metrics-chart"
+        ]
+      }
+    },
+    {
+      "id": "figure",
+      "type": "experiment",
+      "title": "Keep the visual evidence intact",
+      "keyMessage": "Aspect-preserving image panels retain the geometry of a figure.",
+      "blocks": [
+        {
+          "id": "cluster-image",
+          "type": "image",
+          "src": "data:image/png;base64,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",
+          "alt": "Synthetic scatter illustration with two colored point groups",
+          "naturalWidth": 480,
+          "naturalHeight": 270,
+          "fit": "contain",
+          "caption": "Synthetic illustration · 480 × 270 px"
+        },
+        {
+          "id": "figure-note",
+          "type": "text",
+          "text": "SYNTHETIC ILLUSTRATION\n\nTwo hand-generated point groups.\nThis is not an algorithm result.\n\nEmbedded locally for offline rendering.\nThe original aspect ratio is preserved.",
+          "fontSize": 24
+        }
+      ],
+      "sources": [
+        {
+          "id": "src-figure",
+          "title": "Generated demo illustration",
+          "note": "Synthetic points are illustrative, not measured observations."
+        }
+      ]
+    },
+    {
+      "id": "roadmap",
+      "type": "timeline",
+      "title": "A small, testable path forward",
+      "keyMessage": "Expand capabilities only after the rendering loop is reliable.",
+      "blocks": [
+        {
+          "id": "roadmap-flow",
+          "type": "process",
+          "steps": [
+            "v0.1 · Shared IR",
+            "v0.2 · Rich layout",
+            "v0.3 · Model adapters",
+            "v1.0 · Stable SDK"
+          ]
+        },
+        {
+          "id": "roadmap-note",
+          "type": "text",
+          "text": "NOW  ·  Editable exports, geometry checks and safe local repairs.\nNEXT  ·  Broader chart coverage, layout policies and rendered PPTX regression tests.\nLATER  ·  Optional model adapters and collaborative authoring.",
+          "fontSize": 24
+        }
+      ]
+    },
+    {
+      "id": "summary",
+      "type": "summary",
+      "title": "Make every output inspectable",
+      "keyMessage": "A useful MVP preserves meaning across formats and reports its limits.",
+      "blocks": [
+        {
+          "id": "summary-points",
+          "type": "text",
+          "text": "01   Shared IR keeps content separate from presentation.\n\n02   Theme tokens travel across Web and PowerPoint.\n\n03   Audits detect measurable defects; repairs preserve data.\n\n04   Human review remains necessary for factual and aesthetic judgment.",
+          "fontSize": 28
+        }
+      ],
+      "speakerNotes": "Conclude with the distinction between layout validation and factual correctness. All numerical experiment values in this deck are simulated."
+    }
+  ]
+}

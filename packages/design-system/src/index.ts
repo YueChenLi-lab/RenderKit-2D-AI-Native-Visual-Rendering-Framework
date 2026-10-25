@@ -1,0 +1,6 @@
+export interface Theme {id:'academic-minimal'|'tech-dashboard';name:string;colors:{background:string;surface:string;text:string;muted:string;primary:string;secondary:string;border:string;chart:string[]};typography:{fontFamily:string;title:number;body:number;small:number};spacing:{page:number;gap:number};radius:number;border:number;shadow:string;grid:{columns:number};aspectRatio:number;}
+export const themes:Record<Theme['id'],Theme>={
+ 'academic-minimal':{id:'academic-minimal',name:'Academic Minimal',colors:{background:'#F7F5F0',surface:'#FFFFFF',text:'#152C36',muted:'#4B626B',primary:'#006C67',secondary:'#B3612D',border:'#CFDAD8',chart:['#006C67','#B3612D','#516D9A']},typography:{fontFamily:'Arial, sans-serif',title:48,body:24,small:18},spacing:{page:64,gap:28},radius:12,border:1,shadow:'0 12px 32px #152c3610',grid:{columns:12},aspectRatio:16/9},
+ 'tech-dashboard':{id:'tech-dashboard',name:'Tech Dashboard',colors:{background:'#0B1424',surface:'#142238',text:'#EDF4FF',muted:'#A5B8D0',primary:'#65E2C5',secondary:'#F4BD6A',border:'#33445E',chart:['#65E2C5','#F4BD6A','#91ADFF']},typography:{fontFamily:'Arial, sans-serif',title:48,body:24,small:18},spacing:{page:64,gap:28},radius:12,border:1,shadow:'0 12px 32px #00000030',grid:{columns:12},aspectRatio:16/9}
+};
+export function getTheme(id:Theme['id']):Theme{return structuredClone(themes[id]);}
